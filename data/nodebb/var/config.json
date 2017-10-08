@@ -1,5 +1,5 @@
 {
-    "url": "http://mydomain.com",
+    "url": "http://mydomain.com/forum",
     "secret": "b37a3c45-5f5f-409a-a530-827bb808e838",
     "database": "mongo",
     "port": 4567,
