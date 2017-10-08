@@ -1,0 +1,14 @@
+{
+    "url": "http://mydomain.com",
+    "secret": "b37a3c45-5f5f-409a-a530-827bb808e838",
+    "database": "mongo",
+    "port": 4567,
+    "mongo": {
+        "host": "mongo",
+        "port": "27017",
+        "database": "nodebb"
+    },
+    "socket.io": {
+        "origins": "*:*"
+    }
+}

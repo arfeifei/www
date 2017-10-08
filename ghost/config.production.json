@@ -1,0 +1,39 @@
+{
+  "url": "http://mydomain.com/blog",
+  "server": {
+    "port": "2368",
+    "host": "0.0.0.0"
+  },
+  "database": {
+    "client": "mysql",
+    "connection": {
+        "host": "mdb",
+        "user" : "ghost",
+        "password": "ghost",
+        "database": "ghostpassword",
+        "port": "3306",
+        "charset": "utf8"
+    }
+  },
+  "mail": {
+    "from": "'Ghost App'<my@gmail.com>",
+    "transport": "SMTP",
+    "options": {
+      "service": "Gmail",
+      "auth": {
+        "user": "my@gmail.com",
+        "pass": "mypassword"
+      }
+    }
+  },
+  "logging": {
+    "transports": [
+      "file",
+      "stdout"
+    ]
+  },
+  "process": "systemd",
+  "paths": {
+    "contentPath": "/var/lib/ghost/content"
+  }
+}

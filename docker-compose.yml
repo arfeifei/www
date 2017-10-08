@@ -1,0 +1,82 @@
+version: '2'
+
+networks:
+  intra:
+services:
+  ghost-app:
+    build: ghost
+    networks:
+      - intra
+    environment:
+      - NODE_ENV=production
+      - MYSQL_DATABASE=ghost
+      - MYSQL_USER=ghost
+      - MYSQL_PASSWORD=ghostpassword
+    volumes:
+      - ./data/ghost/content:/var/lib/ghost/content
+    depends_on:
+      - mdb
+    ports:
+      - "2368:2368"
+    restart: always
+  nginx:
+    build: nginx
+    networks:
+      - intra 
+    depends_on:
+      - ghost-app
+      - nodebb-app
+      - wordpress-app
+    ports:
+      - "80:80"
+    restart: always
+  mdb:
+    build: mysql
+    networks:
+      - intra
+    environment:
+      - MYSQL_DATABASE=ghost
+      - MYSQL_ROOT_PASSWORD=mysqlrootpassword
+      - MYSQL_USER=ghost
+      - MYSQL_PASSWORD=ghostpassword
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: always
+  nodebb-app:
+    image: vimagick/nodebb:latest
+    networks:
+      - intra
+    ports:
+      - 4567:4567
+    depends_on:
+      - mongo
+    volumes:
+      - ./data/nodebb/var:/var/lib/nodebb
+      - ./data/nodebb/usr:/usr/src/nodebb/build
+    restart: always
+  mongo:
+    image: mongo
+    networks:
+     - intra
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/mongodb:/data/db
+    restart: always
+  wordpress-app:
+    image: wordpress
+    networks:
+     - intra
+    environment:
+      - WORDPRESS_DB_HOST=mdb:3306
+      - WORDPRESS_DB_USER=ghost
+      - WORDPRESS_DB_PASSWORD=ghostpassword
+    volumes:
+      - ./data/wordpress:/var/www/html
+    ports:
+      - "8000:80"
+    depends_on:
+      - mdb
+    restart: always
