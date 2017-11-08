@@ -27,9 +27,17 @@ services:
       - ghost-app
       - nodebb-app
       - wordpress-app
+      - mp-app
     ports:
       - "80:80"
     restart: always
+  mp-app:
+    build: miniproxy
+    networks:
+      - intra
+    ports:
+      - "8080:8080"
+      restart: always
   mdb:
     build: mysql
     networks:
