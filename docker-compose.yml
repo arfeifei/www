@@ -36,8 +36,8 @@ services:
     networks:
       - intra
     ports:
-      - "8080:8080"
-      restart: always
+      - "8080:80"
+    restart: always
   mdb:
     build: mysql
     networks:

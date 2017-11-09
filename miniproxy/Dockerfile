@@ -1,5 +1,7 @@
 FROM php
-ADD index.php /var/www/
-EXPOSE 8080
+
+RUN mkdir -p /var/www/mp
+ADD index.php /var/www/mp
+EXPOSE 80
 WORKDIR /var/www/
-ENTRYPOINT ["php", "-S", "0.0.0.0:8080"]
+ENTRYPOINT ["php", "-S", "0.0.0.0:80"]
